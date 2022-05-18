@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog Daily</title>
+    <link>https://m0nikasingh.xyz/</link>
+    <description>Recent content on Blog Daily</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2022 mOnikasingh</copyright>
+    <lastBuildDate>Wed, 15 Jun 2022 00:41:10 +0800</lastBuildDate><atom:link href="https://m0nikasingh.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trying ClickHouse S3 Engine with Cloudflare&#39;s R2 Object storage</title>
+      <link>https://m0nikasingh.xyz/posts/clickhouse-s3/</link>
+      <pubDate>Wed, 15 Jun 2022 00:41:10 +0800</pubDate>
+      
+      <guid>https://m0nikasingh.xyz/posts/clickhouse-s3/</guid>
+      <description>Cloudflare has recently launched R2 open beta. R2 is an object storage similary to S3. In this blog post, we will create a ClickHouse table using S3 engine to store the data in Cloudflare R2.
+First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL, access_key and secret_key.
+clickhouse-0.clickhouse.cluster.local :) CREATE TABLE s3_engine_table_v2 (name String, value UInt32) ENGINE=S3(&amp;#39;https://account_id.r2.cloudflarestorage.com/my-bucket/test.csv&amp;#39;, &amp;#39;ACCESS_KEY&amp;#39;, &amp;#39;SECRET_KEY&amp;#39;, &amp;#39;CSV&amp;#39;) SETTINGS input_format_with_names_use_header = 0; CREATE TABLE s3_engine_table_v2 ( `name` String, `value` UInt32 ) ENGINE = S3(&amp;#39;https://account_id.</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://m0nikasingh.xyz/posts/hello-world/</link>
+      <pubDate>Wed, 18 May 2022 14:41:10 +0800</pubDate>
+      
+      <guid>https://m0nikasingh.xyz/posts/hello-world/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

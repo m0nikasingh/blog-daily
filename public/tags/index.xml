@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Blog Daily</title>
+    <link>https://m0nikasingh.xyz/tags/</link>
+    <description>Recent content in Tags on Blog Daily</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2022 mOnikasingh</copyright>
+    <lastBuildDate>Wed, 15 Jun 2022 00:41:10 +0800</lastBuildDate><atom:link href="https://m0nikasingh.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cloudflare</title>
+      <link>https://m0nikasingh.xyz/tags/cloudflare/</link>
+      <pubDate>Wed, 15 Jun 2022 00:41:10 +0800</pubDate>
+      
+      <guid>https://m0nikasingh.xyz/tags/cloudflare/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pages</title>
+      <link>https://m0nikasingh.xyz/tags/pages/</link>
+      <pubDate>Wed, 15 Jun 2022 00:41:10 +0800</pubDate>
+      
+      <guid>https://m0nikasingh.xyz/tags/pages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pages.dev</title>
+      <link>https://m0nikasingh.xyz/tags/pages.dev/</link>
+      <pubDate>Wed, 15 Jun 2022 00:41:10 +0800</pubDate>
+      
+      <guid>https://m0nikasingh.xyz/tags/pages.dev/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

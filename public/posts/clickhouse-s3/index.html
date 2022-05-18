@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Trying ClickHouse S3 Engine with Cloudflare&#39;s R2 Object storage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Cloudflare Pages for daily blogging" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Monika Singh
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    SRE
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../post/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../categories/" title="Categories">Categories</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/m0nikasingh" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="https://www.linkedin.com/in/m0nikasingh/" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="https://twitter.com/m0nikasingh" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="monika32011@gmail.com" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>Cloudflare has recently launched R2 open beta. R2 is an object storage similary to S3.
+In this blog post, we will create a ClickHouse table using S3 engine to store the data in Cloudflare R2.</p>
+<p>First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL, access_key and secret_key.</p>
+<pre tabindex="0"><code>clickhouse-0.clickhouse.cluster.local :) CREATE TABLE s3_engine_table_v2 (name String, value UInt32) ENGINE=S3(&#39;https://account_id.r2.cloudflarestorage.com/my-bucket/test.csv&#39;, &#39;ACCESS_KEY&#39;, &#39;SECRET_KEY&#39;, &#39;CSV&#39;) SETTINGS input_format_with_names_use_header = 0;
+
+CREATE TABLE s3_engine_table_v2
+(
+    `name` String,
+    `value` UInt32
+)
+ENGINE = S3(&#39;https://account_id.r2.cloudflarestorage.com/my-bucket/test.csv&#39;, &#39;ACCESS_KEY&#39;, &#39;SECRET_KEY&#39;, &#39;CSV&#39;)
+SETTINGS input_format_with_names_use_header = 0
+
+Query id: e888ae76-3a44-4038-97bb-17b7c061ea1f
+
+Ok.
+
+0 rows in set. Elapsed: 0.007 sec.
+</code></pre><p>Next insert data into it.</p>
+<pre tabindex="0"><code>clickhouse-0.clickhouse.cluster.local :) INSERT INTO s3_engine_table_v2 VALUES (&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3);
+
+INSERT INTO s3_engine_table_v2 FORMAT Values
+
+Query id: fe4b8d96-06d1-45f4-a9d3-85ff99dc76b6
+
+Ok.
+
+3 rows in set. Elapsed: 1.757 sec.
+</code></pre><p>Query R2 to get the inserted data.</p>
+<pre tabindex="0"><code>clickhouse-0.clickhouse.svc.cluster.local :) SELECT * FROM s3_engine_table_v2 LIMIT 2;
+
+SELECT *
+FROM s3_engine_table_v2
+LIMIT 2
+
+Query id: 59211c5b-fd15-4da6-8f4b-4c4363ee0f37
+
+┌─name─┬─value─┐
+│ one  │     1 │
+│ two  │     2 │
+└──────┴───────┘
+
+2 rows in set. Elapsed: 1.149 sec.
+</code></pre><p>If you are able to read the inserted keys succesfully, then you can as well verify by logging into dash.cloudflare.com R2 section.</p>
+
+    </div>
+
+    
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; 2022 mOnikasingh
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

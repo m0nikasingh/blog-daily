@@ -1,9 +1,9 @@
 ---
 title: "ClickHouse systems tables"
-date: 2022-06-17T23:53:00+01:00
 draft: true
 hideLastModified: true
 summary: "ClickHouse Systems Tables"
+summaryImage: "clickhouse-db.png"
 tags: ["cloudflare", "pages", "pages.dev", "clickhouse"]
 keywords: ["pages", "blog"]
 ---

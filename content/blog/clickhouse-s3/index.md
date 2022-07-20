@@ -1,15 +1,18 @@
 ---
 title: "ClickHouse S3 Engine and Cloudflare's R2 Object storage"
 date: 2022-06-17T23:53:00+01:00
-hideLastModified: true
 summary: "Trying ClickHouse S3 Engine with Cloudflare's R2 Object storage"
+summaryImage: "clickhouse-db.png"
 tags: ["cloudflare r2", "r2", "clickhouse"]
 ---
+
 
 Cloudflare has recently launched R2 open beta. R2 is an object storage similary to S3.
 In this blog post, we will create a ClickHouse table using S3 engine to store the data in Cloudflare R2.
 
-First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL, access_key and secret_key.
+**ClickHouse S3 table engine**
+First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL,
+`access_key` and `secret_key`.
 
 ```
 clickhouse-0.clickhouse.cluster.local :) CREATE TABLE s3_engine_table_v2 (name String, value UInt32) ENGINE=S3('https://account_id.r2.cloudflarestorage.com/my-bucket/test.csv', 'ACCESS_KEY', 'SECRET_KEY', 'CSV') SETTINGS input_format_with_names_use_header = 0;
@@ -29,6 +32,8 @@ Ok.
 0 rows in set. Elapsed: 0.007 sec.
 ```
 
+**Data insertion**
+
 Next insert data into it.
 
 ```
@@ -42,6 +47,8 @@ Ok.
 
 3 rows in set. Elapsed: 1.757 sec.
 ```
+
+**Query R2**
 
 Query R2 to get the inserted data.
 

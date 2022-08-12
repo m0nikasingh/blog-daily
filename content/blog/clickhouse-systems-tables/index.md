@@ -1,19 +1,28 @@
 ---
-title: "ClickHouse systems tables"
-draft: true
+title: "ClickHouse system.parts tables"
 hideLastModified: true
-summary: "ClickHouse Systems Tables"
+summary: "ClickHouse system.parts Tables"
 summaryImage: "clickhouse-db.png"
 tags: ["cloudflare", "pages", "pages.dev", "clickhouse"]
 keywords: ["pages", "blog"]
 ---
 System tables
 
-ClickHouse System tables store system information in virtual tables. Virtual tables do not store any data on disk, it is in memory and these tables are “read only”.
-The Systems table provides great visibility into the system. The table queries can be exported as metrics and alerted on or used to visualize in the dashboards to correlate with other events.
+ClickHouse system tables store system information in virtual tables.
+Virtual tables do not store any data on disk, it is in memory and
+these tables are “read only”.
 
-We used system.parts tables to understand how much storage space we would require in Clickhouse before migrating data. ClickHouse exposes system information using system tables like information about states, processes, environment, and internal processes. Example query:
+The Systems table provides great visibility into the system.
+The system table queries can be exported as metrics and alerted on or
+it can be used to visualize in the dashboards to correlate with other events.
 
+system.parts tables can be used to understand how much storage space would be required
+before migrating data from some other datastore to ClickHouse or to understand 
+the schema storage optimization gains.
+
+Create a table with schema, insert data into the table. Query the system.parts table:
+
+Example query:
 ```
 SELECT
     table,
@@ -25,26 +34,22 @@ GROUP BY table
 ORDER BY sum(bytes) DESC
 FORMAT Vertical
 
-Table: 		`requests_error`
+Table: 		`tablename`
 replicaSize:	1.29 GiB
 replicaRows:	7465000
 perRow:	185.96 B
 ```
 
-Capacity estimation example:
+Storage estimation example:
 
-```
 With current schema, it takes around 190 B to store one row
-In one second, we receive around max of 250K messages in `requests_error` topic,
-Total space required to store 250K messages = 190 * 250,000 B = 47.5 MB
+If the messages received are 250K requests per second then
+The total space required to store 250K messages = 190 * 250,000 B = 47.5 MB
 For 1 replica, total space required to store 1 day of logs = 47.5 * 60 * 60 * 24 MB = 4.1 TB
 For 3 replicas, total space required to store 1 day of logs = 4.1 * 3 = 12.3 TB
-```
 
-Materialized views can be created on top of system tables to provide visibility into system events. Creating a distributed table on top of these materialized view tables would be very useful in tracking queries across shards. For instance,
-- `parts_columns` - can provide insight into each column's compressed, uncompressed size.
-- `part_log` - can provide insights of reads and writes happening on shard or replica.
-- `query_logs` - can give details on the number of bytes read/written or the number of rows read/written by the user.
+You may perform optimizations or changes to the schema and repeat the query.
 
-
-
+Materialized views can be created on top of system tables to make it more efficient.
+Creating a distributed table on top of these materialized view tables would be very
+useful in tracking queries across shards.

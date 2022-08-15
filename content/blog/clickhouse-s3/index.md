@@ -7,11 +7,11 @@ tags: ["cloudflare r2", "r2", "clickhouse"]
 ---
 
 
-Cloudflare has recently launched R2 open beta. R2 is an object storage similary to S3.
+Cloudflare has recently launched R2 open beta. R2 is an object storage similary to S3.\
 In this blog post, we will create a ClickHouse table using S3 engine to store the data in Cloudflare R2.
 
 **ClickHouse S3 table engine**
-First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL,
+First, lets create a table with S3 engine. To create this table, we need to provide bucket web URL,\
 `access_key` and `secret_key`.
 
 ```
